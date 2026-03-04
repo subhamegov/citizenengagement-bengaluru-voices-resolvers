@@ -108,53 +108,75 @@ export function AppLayout({ children }: AppLayoutProps) {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <nav id="mobile-menu" className="xl:hidden bg-primary text-primary-foreground border-t animate-slide-up" aria-label="Mobile navigation">
-            <div className="container py-4 space-y-1">
-              {navigation.map((item) => (
+          <>
+            <div 
+              className="fixed inset-0 bg-black/50 z-40" 
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <nav 
+              id="mobile-menu" 
+              className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground animate-slide-up max-h-[85vh] overflow-y-auto shadow-xl" 
+              aria-label="Mobile navigation"
+            >
+              <div className="container py-4 space-y-1">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-bold text-lg">Menu</span>
+                  <button
+                    type="button"
+                    className="flex items-center justify-center w-11 h-11 rounded hover:bg-white/10 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label="Close menu"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+                {navigation.map((item) => (
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    className={({ isActive }) =>
+                      cn(
+                        'flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10',
+                        isActive && 'bg-white/20 font-bold'
+                      )
+                    }
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <item.icon className="w-6 h-6" aria-hidden="true" />
+                    <div>
+                      <span className="block font-semibold">{item.name}</span>
+                      <span className="text-sm opacity-80">{item.description}</span>
+                    </div>
+                  </NavLink>
+                ))}
+
                 <NavLink
-                  key={item.name}
-                  to={item.href}
-                  className={({ isActive }) =>
-                    cn(
-                      'flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10',
-                      isActive && 'bg-white/20 font-bold'
-                    )
-                  }
+                  to="/resolver"
+                  className="flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10 mt-4 border-t border-white/10 pt-4"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <item.icon className="w-6 h-6" aria-hidden="true" />
+                  <ArrowRightLeft className="w-6 h-6" aria-hidden="true" />
                   <div>
-                    <span className="block font-semibold">{item.name}</span>
-                    <span className="text-sm opacity-80">{item.description}</span>
+                    <span className="block font-semibold">Switch to Resolver</span>
+                    <span className="text-sm opacity-80">Go to staff portal</span>
                   </div>
                 </NavLink>
-              ))}
 
-              <NavLink
-                to="/resolver"
-                className="flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10 mt-4 border-t border-white/10 pt-4"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <ArrowRightLeft className="w-6 h-6" aria-hidden="true" />
-                <div>
-                  <span className="block font-semibold">Switch to Resolver</span>
-                  <span className="text-sm opacity-80">Go to staff portal</span>
-                </div>
-              </NavLink>
-
-              <NavLink
-                to="/elected"
-                className="flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Users className="w-6 h-6" aria-hidden="true" />
-                <div>
-                  <span className="block font-semibold">Elected Representative</span>
-                  <span className="text-sm opacity-80">Go to elected rep view</span>
-                </div>
-              </NavLink>
-            </div>
-          </nav>
+                <NavLink
+                  to="/elected"
+                  className="flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Users className="w-6 h-6" aria-hidden="true" />
+                  <div>
+                    <span className="block font-semibold">Elected Representative</span>
+                    <span className="text-sm opacity-80">Go to elected rep view</span>
+                  </div>
+                </NavLink>
+              </div>
+            </nav>
+          </>
         )}
       </header>
 
