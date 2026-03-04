@@ -8,6 +8,7 @@ import { AppLayout } from '@/components/layout/AppLayout';
 import { CityMap } from '@/components/map/CityMap';
 import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
 import { ActiveSurveys } from '@/components/surveys/ActiveSurveys';
+import { NotificationsPanel } from '@/components/notifications/NotificationsPanel';
 import { findWardByCoords } from '@/lib/happeningsApi';
 import { UserPreferencesModal, loadUserPreferences, UserPreferences } from '@/components/preferences/UserPreferencesModal';
 import { Button } from '@/components/ui/button';
@@ -127,6 +128,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ── Notifications ── */}
+      <NotificationsPanel className="mb-8" />
+
       {/* ── Preferences Banner (compact) ── */}
       <section className="mb-8">
         <div className="gov-card p-3 flex items-center justify-between">
@@ -134,7 +138,7 @@ const Index = () => {
             <Settings2 className="w-4 h-4 text-primary flex-shrink-0" />
             <p className="text-sm text-foreground">
               {userPreferences.subscribedWards.length > 0 || userPreferences.preferredTopics.length > 0
-                ? `Following ${userPreferences.subscribedWards.length} area(s), ${userPreferences.preferredTopics.length} topic(s)`
+                ? `Following ${userPreferences.subscribedWards.length} ward(s), ${userPreferences.preferredTopics.length} topic(s)`
                 : 'Customize your feed — select wards and topics'}
             </p>
           </div>
