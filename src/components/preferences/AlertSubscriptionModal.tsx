@@ -155,7 +155,7 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold text-foreground">Your Ward</h3>
+                <h3 className="font-semibold text-foreground">My Wards</h3>
                 <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                   {selectedWards.length} selected
                 </span>
