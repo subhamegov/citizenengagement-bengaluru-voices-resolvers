@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
-import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users, Search, Accessibility, Languages, User } from 'lucide-react';
+import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users, Search, Accessibility, Languages, User, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { CITY } from '@/config/city';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
-const navigation = [
+const citizenNav = [
   { name: 'Home', href: '/', icon: Home, description: 'Discover what is happening' },
   { name: 'About My City', href: '/about-my-city', icon: Building, description: 'City info, events & FAQs' },
   { name: 'Report Issue', href: '/report', icon: MapPin, description: 'Report an issue' },
@@ -20,17 +27,21 @@ const navigation = [
   { name: 'Training & Help', href: '/training', icon: GraduationCap, description: 'Learn how to use the portal' },
 ];
 
+const portalLinks = [
+  { name: 'Resolver Dashboard', href: '/resolver', icon: ArrowRightLeft, description: 'Go to staff portal' },
+  { name: 'Elected Representative', href: '/elected', icon: Users, description: 'Go to elected rep view' },
+];
+
 export function AppLayout({ children }: AppLayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
 
-      {/* ── Accessibility / Utility Bar (MyGov style) ── */}
+      {/* ── Accessibility / Utility Bar ── */}
       <div className="mygov-utility-bar">
         <div className="container flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {/* Indian flag placeholder */}
             <span className="mygov-flag" aria-label="Indian flag">🇮🇳</span>
             <span className="font-semibold text-xs sm:text-sm tracking-wide uppercase">
               {CITY.authorityName}
@@ -40,40 +51,25 @@ export function AppLayout({ children }: AppLayoutProps) {
             <a href="#main-content" className="mygov-utility-link hidden sm:inline-flex">
               Skip to main content
             </a>
-            <button
-              className="mygov-utility-btn"
-              aria-label="Change language"
-              title="Language"
-            >
+            <button className="mygov-utility-btn" aria-label="Change language" title="Language">
               <Languages className="w-4 h-4" />
               <span className="hidden sm:inline text-xs">English</span>
             </button>
-            <button
-              className="mygov-utility-btn"
-              aria-label="Accessibility options"
-              title="Accessibility"
-            >
+            <button className="mygov-utility-btn" aria-label="Accessibility options" title="Accessibility">
               <Accessibility className="w-4 h-4" />
-            </button>
-            <button
-              className="mygov-utility-btn"
-              aria-label="Sign in"
-              title="Sign in"
-            >
-              <User className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* ── Gradient accent bar (saffron → magenta, MyGov style) ── */}
+      {/* ── Gradient accent bar ── */}
       <div className="mygov-accent-bar" />
 
       {/* ── Main Header ── */}
       <header className="mygov-header sticky top-0 z-50">
         <div className="container">
+          {/* Top row: emblem + name + search + profile */}
           <div className="flex items-center justify-between h-16 md:h-[72px]">
-            {/* Logo + Name */}
             <NavLink to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity flex-shrink-0">
               <img
                 src={CITY.emblemAsset}
@@ -90,52 +86,34 @@ export function AppLayout({ children }: AppLayoutProps) {
               </div>
             </NavLink>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
-              {navigation.map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  end={item.href === '/'}
-                  className={({ isActive }) =>
-                    cn('mygov-nav-item', isActive && 'mygov-nav-item--active')
-                  }
-                  aria-label={item.description}
-                >
-                  <item.icon className="w-4 h-4" aria-hidden="true" />
-                  <span className="hidden xl:inline">{item.name}</span>
-                </NavLink>
-              ))}
-
-              <div className="w-px h-6 bg-border mx-1.5" aria-hidden="true" />
-
-              <NavLink
-                to="/resolver"
-                className={({ isActive }) =>
-                  cn('mygov-nav-item', isActive && 'mygov-nav-item--active')
-                }
-                aria-label="Switch to Resolver Dashboard"
-              >
-                <ArrowRightLeft className="w-4 h-4" aria-hidden="true" />
-                <span className="hidden xl:inline">Resolver</span>
-              </NavLink>
-
-              <NavLink
-                to="/elected"
-                className={({ isActive }) =>
-                  cn('mygov-nav-item', isActive && 'mygov-nav-item--active')
-                }
-                aria-label="Elected Representative View"
-              >
-                <Users className="w-4 h-4" aria-hidden="true" />
-                <span className="hidden xl:inline">Elected Rep</span>
-              </NavLink>
-            </nav>
-
-            {/* Desktop: Search icon */}
-            <button className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full hover:bg-muted transition-colors text-muted-foreground" aria-label="Search">
-              <Search className="w-5 h-5" />
-            </button>
+            {/* Desktop right: search + profile */}
+            <div className="hidden lg:flex items-center gap-2">
+              <button className="mygov-header-icon-btn" aria-label="Search">
+                <Search className="w-5 h-5" />
+              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="mygov-profile-btn" aria-label="User profile">
+                    <User className="w-5 h-5" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem>Sign In</DropdownMenuItem>
+                  <DropdownMenuItem>Register</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <NavLink to="/resolver" className="flex items-center gap-2 w-full">
+                      <ArrowRightLeft className="w-4 h-4" /> Resolver Portal
+                    </NavLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <NavLink to="/elected" className="flex items-center gap-2 w-full">
+                      <Users className="w-4 h-4" /> Elected Rep
+                    </NavLink>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
 
             {/* Mobile Menu Button */}
             <button
@@ -150,6 +128,30 @@ export function AppLayout({ children }: AppLayoutProps) {
             </button>
           </div>
         </div>
+
+        {/* ── Desktop Navigation Row (MyGov style: text + chevrons) ── */}
+        <nav className="hidden lg:block border-t border-border/50" aria-label="Main navigation">
+          <div className="container">
+            <div className="flex items-center justify-between">
+              <div className="mygov-nav-row">
+                {citizenNav.map((item) => (
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    end={item.href === '/'}
+                    className={({ isActive }) =>
+                      cn('mygov-nav-text-item', isActive && 'mygov-nav-text-item--active')
+                    }
+                    aria-label={item.description}
+                  >
+                    {item.name}
+                    <ChevronDown className="w-3.5 h-3.5 opacity-40" aria-hidden="true" />
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+          </div>
+        </nav>
       </header>
 
       {/* Mobile Navigation */}
@@ -166,7 +168,6 @@ export function AppLayout({ children }: AppLayoutProps) {
             aria-label="Mobile navigation"
           >
             <div className="py-4 px-5 space-y-1">
-              {/* Close header */}
               <div className="flex items-center justify-between mb-5 pb-3 border-b border-border">
                 <div className="flex items-center gap-2">
                   <img src={CITY.emblemAsset} alt={CITY.emblemAlt} className="w-8 h-8 object-contain" />
@@ -182,7 +183,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                 </button>
               </div>
 
-              {navigation.map((item) => (
+              {citizenNav.map((item) => (
                 <NavLink
                   key={item.name}
                   to={item.href}
@@ -207,29 +208,20 @@ export function AppLayout({ children }: AppLayoutProps) {
 
               <div className="border-t border-border my-3" />
 
-              <NavLink
-                to="/resolver"
-                className="flex items-center gap-3 px-3 py-3 rounded-lg text-foreground hover:bg-muted transition-all"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <ArrowRightLeft className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
-                <div>
-                  <span className="block text-sm font-semibold">Switch to Resolver</span>
-                  <span className="block text-xs text-muted-foreground">Go to staff portal</span>
-                </div>
-              </NavLink>
-
-              <NavLink
-                to="/elected"
-                className="flex items-center gap-3 px-3 py-3 rounded-lg text-foreground hover:bg-muted transition-all"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Users className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
-                <div>
-                  <span className="block text-sm font-semibold">Elected Representative</span>
-                  <span className="block text-xs text-muted-foreground">Go to elected rep view</span>
-                </div>
-              </NavLink>
+              {portalLinks.map((item) => (
+                <NavLink
+                  key={item.name}
+                  to={item.href}
+                  className="flex items-center gap-3 px-3 py-3 rounded-lg text-foreground hover:bg-muted transition-all"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <item.icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                  <div>
+                    <span className="block text-sm font-semibold">{item.name}</span>
+                    <span className="block text-xs text-muted-foreground">{item.description}</span>
+                  </div>
+                </NavLink>
+              ))}
             </div>
           </nav>
         </>,
@@ -258,7 +250,7 @@ export function AppLayout({ children }: AppLayoutProps) {
             <div className="space-y-3">
               <h3 className="font-semibold text-sm uppercase tracking-wider opacity-80">Quick Links</h3>
               <ul className="space-y-1.5 text-sm">
-                {navigation.slice(0, 5).map((item) => (
+                {citizenNav.slice(0, 5).map((item) => (
                   <li key={item.name}>
                     <NavLink to={item.href} className="opacity-70 hover:opacity-100 transition-opacity inline-flex items-center gap-2">
                       <item.icon className="w-3.5 h-3.5" />

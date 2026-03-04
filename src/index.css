@@ -114,7 +114,7 @@
     isolation: isolate;
   }
 
-  /* ── Nav items (MyGov style) ── */
+  /* ── Nav items (legacy icon-based — kept for resolver) ── */
   .mygov-nav-item {
     @apply inline-flex items-center gap-1.5 px-2.5 py-2 rounded-md text-sm font-medium;
     @apply text-muted-foreground transition-all duration-150;
@@ -124,6 +124,49 @@
   .mygov-nav-item--active {
     @apply text-primary font-semibold;
     background-color: hsl(var(--primary) / 0.08);
+  }
+
+  /* ── MyGov-style text nav row ── */
+  .mygov-nav-row {
+    @apply flex items-center gap-0;
+  }
+
+  .mygov-nav-text-item {
+    @apply inline-flex items-center gap-1.5 px-4 py-3 text-sm font-medium;
+    @apply text-muted-foreground transition-all duration-150 relative;
+    @apply hover:text-foreground;
+  }
+
+  .mygov-nav-text-item:hover {
+    background-color: hsl(var(--muted) / 0.5);
+  }
+
+  .mygov-nav-text-item--active {
+    @apply text-primary font-semibold;
+  }
+
+  .mygov-nav-text-item--active::after {
+    content: '';
+    @apply absolute bottom-0 left-3 right-3 h-[3px] rounded-t;
+    background-color: hsl(var(--primary));
+  }
+
+  /* ── Header icon buttons ── */
+  .mygov-header-icon-btn {
+    @apply flex items-center justify-center w-10 h-10 rounded-full;
+    @apply text-muted-foreground hover:text-foreground hover:bg-muted transition-colors;
+    border: 1px solid hsl(var(--border));
+  }
+
+  .mygov-profile-btn {
+    @apply flex items-center justify-center w-10 h-10 rounded-full;
+    @apply text-white transition-all;
+    background: linear-gradient(135deg, hsl(25 95% 53%), hsl(350 80% 55%));
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(350 80% 55% / 0.3);
+  }
+
+  .mygov-profile-btn:hover {
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 5px hsl(350 80% 55% / 0.4);
   }
 
   /* ── Hero ── */
