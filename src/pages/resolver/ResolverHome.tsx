@@ -1,4 +1,5 @@
 import React from 'react';
+import { CITY } from '@/config/city';
 import { Link } from 'react-router-dom';
 import { 
   ClipboardList, 
@@ -83,10 +84,10 @@ const RESOLVER_METRICS = [
 
 // Recent assigned issues
 const RECENT_ISSUES = [
-  { id: 'ULB-2025-0487', category: 'Pothole on Main Road', status: 'Open', priority: 'High', time: '2h ago' },
-  { id: 'ULB-2025-0486', category: 'Burst Sewer Line', status: 'Assigned', priority: 'Critical', time: '3h ago' },
-  { id: 'ULB-2025-0485', category: 'Garbage Collection', status: 'In Progress', priority: 'Medium', time: '5h ago' },
-  { id: 'ULB-2025-0484', category: 'Street Light Fault', status: 'Assigned', priority: 'Low', time: '6h ago' },
+  { id: `${CITY.issueIdPrefix}-2026-0487`, category: 'Pothole on MG Road', status: 'Open', priority: 'High', time: '2h ago' },
+  { id: `${CITY.issueIdPrefix}-2026-0486`, category: 'Sewer Overflow near KR Market', status: 'Assigned', priority: 'Critical', time: '3h ago' },
+  { id: `${CITY.issueIdPrefix}-2026-0485`, category: 'Garbage Not Collected – Indiranagar', status: 'In Progress', priority: 'Medium', time: '5h ago' },
+  { id: `${CITY.issueIdPrefix}-2026-0484`, category: 'Streetlight Fault – Jayanagar 4th Block', status: 'Assigned', priority: 'Low', time: '6h ago' },
 ];
 
 const getStatusColor = (status: string) => {
