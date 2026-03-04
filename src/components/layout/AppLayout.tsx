@@ -42,7 +42,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       <div className="mygov-utility-bar">
         <div className="container flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="mygov-flag" aria-label="Indian flag">🇮🇳</span>
+            <img src={CITY.stateEmblemAsset} alt={CITY.stateEmblemAlt} className="w-6 h-6 object-contain" />
             <span className="font-semibold text-xs sm:text-sm tracking-wide uppercase">
               {CITY.authorityName}
             </span>

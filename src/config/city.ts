@@ -3,7 +3,8 @@
  * Change these values to rebrand the entire portal for any ULB.
  */
 
-import kenyaCoatOfArms from '@/assets/kenya-coat-of-arms.png';
+import bbmpLogo from '@/assets/bbmp-logo.png';
+import karnatakaGovLogo from '@/assets/karnataka-gov-logo.png';
 
 export const CITY = {
   /** Full name of the governing authority */
@@ -27,11 +28,15 @@ export const CITY = {
   /** Official website */
   website: 'https://bbmp.gov.in',
 
-  /** Path to emblem/logo asset */
-  emblemAsset: kenyaCoatOfArms,
+  /** Path to emblem/logo asset (BBMP) */
+  emblemAsset: bbmpLogo,
 
   /** Alt text for the emblem image */
-  emblemAlt: 'Government of India Emblem',
+  emblemAlt: 'BBMP Logo',
+
+  /** Karnataka state government logo */
+  stateEmblemAsset: karnatakaGovLogo,
+  stateEmblemAlt: 'Government of Karnataka Logo',
 
   /** Prefix for issue/ticket IDs */
   issueIdPrefix: 'BBMP',
