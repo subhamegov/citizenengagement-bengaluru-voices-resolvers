@@ -72,13 +72,18 @@ export function AppLayout({ children }: AppLayoutProps) {
           <div className="flex items-center justify-between h-16 md:h-[72px]">
             <NavLink to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity flex-shrink-0">
               <img
+                src={CITY.stateEmblemAsset}
+                alt={CITY.stateEmblemAlt}
+                className="w-11 h-11 md:w-12 md:h-12 object-contain"
+              />
+              <img
                 src={CITY.emblemAsset}
                 alt={CITY.emblemAlt}
                 className="w-11 h-11 md:w-12 md:h-12 object-contain"
               />
               <div className="min-w-0">
                 <p className="text-base md:text-lg font-bold leading-tight tracking-tight text-foreground truncate">
-                  {CITY.authorityName}
+                  Greater Bengaluru Authority
                 </p>
                 <p className="text-[11px] md:text-xs text-muted-foreground font-medium">
                   {CITY.portalCitizenTitle}
