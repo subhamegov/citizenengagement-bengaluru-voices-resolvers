@@ -73,10 +73,13 @@
     @apply text-white text-xs py-1.5 px-4;
   }
 
-  /* ── Header — solid white, border bottom ── */
+  /* ── Header — solid white, border bottom, always on top ── */
   .gov-header {
-    @apply bg-background border-b shadow-sm;
+    @apply border-b shadow-sm relative;
+    background-color: hsl(var(--background));
     border-color: hsl(var(--gov-header-border));
+    z-index: 50;
+    isolation: isolate;
   }
 
   /* ── Tricolour accent bar ── */

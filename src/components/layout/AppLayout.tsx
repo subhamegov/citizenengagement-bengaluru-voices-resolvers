@@ -39,7 +39,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       <div className="gov-accent-bar" />
 
       {/* Header */}
-      <header className="gov-header sticky top-0 z-40">
+      <header className="gov-header sticky top-0 z-50">
         <div className="container">
           <div className="flex items-center justify-between h-16 md:h-20">
             <NavLink to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
