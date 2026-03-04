@@ -194,8 +194,8 @@ const Index = () => {
       <section className="mb-8" aria-labelledby="happenings-section-title">
         <HappeningsFeed
           wardCode={selectedWard?.code}
-          lat={selectedLocation?.lat ?? -1.2921}
-          lng={selectedLocation?.lng ?? 36.8219}
+          lat={selectedLocation?.lat ?? 12.9716}
+          lng={selectedLocation?.lng ?? 77.5946}
           radiusKm={5}
         />
       </section>

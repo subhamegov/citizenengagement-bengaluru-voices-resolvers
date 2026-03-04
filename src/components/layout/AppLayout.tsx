@@ -167,24 +167,23 @@ export function AppLayout({ children }: AppLayoutProps) {
       <footer className="gov-footer">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <img src={CITY.emblemAsset} alt={CITY.emblemAlt} className="w-12 h-12 object-contain brightness-200" />
+                <img src={CITY.emblemAsset} alt={CITY.emblemAlt} className="w-10 h-10 object-contain brightness-200" />
                 <div>
-                  <p className="font-bold text-lg font-display">{CITY.authorityName}</p>
-                  <p className="text-sm opacity-80">{CITY.portalCitizenTitle}</p>
+                  <p className="font-bold font-display">{CITY.authorityName}</p>
+                  <p className="text-xs opacity-70">{CITY.portalCitizenTitle}</p>
                 </div>
               </div>
-              <p className="text-sm opacity-75 max-w-xs">{CITY.footerTagline}</p>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="font-bold text-lg font-display">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
+            <div className="space-y-3">
+              <h3 className="font-semibold text-sm uppercase tracking-wider opacity-80">Quick Links</h3>
+              <ul className="space-y-1.5 text-sm">
                 {navigation.slice(0, 5).map((item) => (
                   <li key={item.name}>
-                    <NavLink to={item.href} className="opacity-80 hover:opacity-100 hover:text-secondary transition-all inline-flex items-center gap-2 min-h-0">
-                      <item.icon className="w-4 h-4" />
+                    <NavLink to={item.href} className="opacity-70 hover:opacity-100 transition-opacity inline-flex items-center gap-2">
+                      <item.icon className="w-3.5 h-3.5" />
                       {item.name}
                     </NavLink>
                   </li>
@@ -192,20 +191,20 @@ export function AppLayout({ children }: AppLayoutProps) {
               </ul>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="font-bold text-lg font-display">Contact Us</h3>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-center gap-3 opacity-80">
-                  <Phone className="w-4 h-4 text-secondary" />
+            <div className="space-y-3">
+              <h3 className="font-semibold text-sm uppercase tracking-wider opacity-80">Contact</h3>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2 opacity-70">
+                  <Phone className="w-3.5 h-3.5" />
                   <span>{CITY.helpline}</span>
                 </li>
-                <li className="flex items-center gap-3 opacity-80">
-                  <Mail className="w-4 h-4 text-secondary" />
+                <li className="flex items-center gap-2 opacity-70">
+                  <Mail className="w-3.5 h-3.5" />
                   <span>{CITY.email}</span>
                 </li>
-                <li className="flex items-center gap-3 opacity-80">
-                  <Globe className="w-4 h-4 text-secondary" />
-                  <a href={CITY.website} target="_blank" rel="noopener noreferrer" className="hover:text-secondary min-h-0">
+                <li className="flex items-center gap-2 opacity-70">
+                  <Globe className="w-3.5 h-3.5" />
+                  <a href={CITY.website} target="_blank" rel="noopener noreferrer" className="hover:opacity-100">
                     {CITY.website}
                   </a>
                 </li>
@@ -213,8 +212,8 @@ export function AppLayout({ children }: AppLayoutProps) {
             </div>
           </div>
 
-          <div className="pt-8 border-t border-white/10 text-center">
-            <p className="text-sm opacity-60">{CITY.copyright(new Date().getFullYear())}</p>
+          <div className="pt-6 border-t border-white/10 text-center">
+            <p className="text-xs opacity-50">{CITY.copyright(new Date().getFullYear())}</p>
           </div>
         </div>
       </footer>

@@ -7,7 +7,7 @@ import kenyaCoatOfArms from '@/assets/kenya-coat-of-arms.png';
 
 export const CITY = {
   /** Full name of the governing authority */
-  authorityName: 'Municipal Corporation',
+  authorityName: 'Bruhat Bengaluru Mahanagara Palike',
 
   /** Citizen-facing portal title */
   portalCitizenTitle: 'Citizen Service Portal',
@@ -19,22 +19,22 @@ export const CITY = {
   portalElectedTitle: 'Elected Representative Dashboard',
 
   /** Helpline number */
-  helpline: '1800-111-555',
+  helpline: '1800-425-4455',
 
   /** Support email */
-  email: 'support@municipality.gov.in',
+  email: 'grievance@bbmp.gov.in',
 
   /** Official website */
-  website: 'https://municipality.gov.in',
+  website: 'https://bbmp.gov.in',
 
   /** Path to emblem/logo asset */
   emblemAsset: kenyaCoatOfArms,
 
   /** Alt text for the emblem image */
-  emblemAlt: 'Government Emblem',
+  emblemAlt: 'Government of India Emblem',
 
   /** Prefix for issue/ticket IDs */
-  issueIdPrefix: 'ULB',
+  issueIdPrefix: 'BBMP',
 
   /** Label for the smallest admin boundary (e.g. ward, zone) */
   adminUnitLabel: 'Ward',
@@ -43,7 +43,7 @@ export const CITY = {
   adminUnitPlural: 'Wards',
 
   /** City display name */
-  cityName: 'My City',
+  cityName: 'Bengaluru',
 
   /** Tagline displayed in header/hero */
   tagline: 'Empowering citizens through transparent governance',
@@ -51,12 +51,12 @@ export const CITY = {
   /** Hero section copy */
   heroTitle: 'Your Voice Matters',
   heroSubtitle:
-    'Report civic issues, track resolutions, and participate in building a better city.',
+    'Report civic issues, track resolutions, and participate in building a better Bengaluru.',
   heroCta: 'Report an Issue',
 
   /** Footer */
   footerTagline:
     'Building a smart, inclusive, and responsive city together.',
   copyright: (year: number) =>
-    `© ${year} Municipal Corporation. All rights reserved.`,
+    `© ${year} Bruhat Bengaluru Mahanagara Palike. All rights reserved.`,
 } as const;
