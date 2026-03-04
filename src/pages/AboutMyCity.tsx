@@ -12,10 +12,11 @@ import {
   Share2, CalendarPlus, AlertTriangle, Zap, Trash2, Search, Phone,
   MessageCircle, Volume2, Mic, Info, ChevronRight, HelpCircle,
   Landmark, Globe, Smartphone, Link2, FileText, ScrollText,
-  Shield, Map, Leaf, Eye, Briefcase, ArrowRight, Mail
+  Shield, Map, Leaf, Eye, Briefcase, ArrowRight, Mail, Bell
 } from 'lucide-react';
 import { EVENT_TYPE_ICONS, StatusDot } from '@/lib/iconMaps';
 import { BENGALURU_ZONES } from '@/lib/bengaluruAdminData';
+import { AlertSubscriptionModal } from '@/components/preferences/AlertSubscriptionModal';
 
 // GBA Officers data from bbmp.gov.in
 const gbaOfficers = [
@@ -180,26 +181,45 @@ const upcomingEvents = [
   },
 ];
 
-// Mock service updates data
+// Service updates data – includes power outage updates
 const serviceUpdates = [
   {
     id: 1,
     category: 'Water Supply',
     status: 'partial',
-    message: 'Temporary outage in Koramangala – restoration expected by 8 PM.',
+    message: 'Temporary outage in Koramangala – BWSSB restoration expected by 8 PM.',
     icon: Droplets,
     lastUpdated: '2 hours ago',
   },
   {
     id: 2,
-    category: 'Electricity',
+    category: 'Power – BESCOM',
     status: 'partial',
     message: 'Scheduled transformer maintenance in Indiranagar, 3–5 PM today.',
     icon: Zap,
     lastUpdated: '4 hours ago',
+    helpline: '1912',
   },
   {
     id: 3,
+    category: 'Power – BESCOM',
+    status: 'outage',
+    message: 'Unscheduled outage in Whitefield due to cable fault. Crew dispatched.',
+    icon: Zap,
+    lastUpdated: '1 hour ago',
+    helpline: '1912',
+  },
+  {
+    id: 4,
+    category: 'Power – BESCOM',
+    status: 'partial',
+    message: 'Voltage fluctuations reported in Mahadevapura. Under investigation.',
+    icon: Zap,
+    lastUpdated: '3 hours ago',
+    helpline: '1912',
+  },
+  {
+    id: 5,
     category: 'Garbage Collection',
     status: 'outage',
     message: 'Collection delays in Mahadevapura Zone due to vehicle repairs.',
@@ -207,7 +227,7 @@ const serviceUpdates = [
     lastUpdated: '1 hour ago',
   },
   {
-    id: 4,
+    id: 6,
     category: 'Roads & Traffic',
     status: 'normal',
     message: 'All major roads operational. Minor works on Outer Ring Road.',
@@ -255,6 +275,7 @@ export default function AboutMyCity() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showPastEvents, setShowPastEvents] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
 
   const speakText = (text: string) => {
     if ('speechSynthesis' in window) {
@@ -461,8 +482,8 @@ export default function AboutMyCity() {
               <AlertTriangle className="w-6 h-6 text-primary" aria-hidden="true" />
               City Service Updates
             </h2>
-            <Button variant="outline" size="sm">
-              <Info className="w-4 h-4 mr-1" /> Subscribe to Alerts
+            <Button variant="outline" size="sm" onClick={() => setAlertModalOpen(true)}>
+              <Bell className="w-4 h-4 mr-1" /> Subscribe to Alerts
             </Button>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -684,132 +705,6 @@ export default function AboutMyCity() {
           </Card>
         </section>
 
-        {/* ── Power Outage Feedback ── */}
-        <section aria-labelledby="power-outage-heading">
-          <h2 id="power-outage-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2 mb-4">
-            <Zap className="w-6 h-6 text-primary" aria-hidden="true" />
-            Power Outage Updates & How to Report
-          </h2>
-          <div className="space-y-4">
-            <Card className="bg-orange-50 dark:bg-orange-900/10 border-orange-200 dark:border-orange-800">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-6 h-6 text-orange-600 dark:text-orange-400 shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">Frequent Power Cuts in Bengaluru</h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      Despite Karnataka being a power-surplus state, Bengaluru faces frequent power outages due to 
-                      infrastructure upgrades, tree trimming, and transformer maintenance by BESCOM. Many areas experience 
-                      scheduled and unscheduled outages regularly.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline" className="text-xs">BESCOM</Badge>
-                      <Badge variant="outline" className="text-xs">Infrastructure</Badge>
-                      <Badge variant="outline" className="text-xs">Scheduled Maintenance</Badge>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-primary" />
-                    BESCOM Helpline & Complaint Channels
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
-                      <span className="font-medium">24x7 Helpline</span>
-                      <a href="tel:1912" className="text-primary font-bold">1912</a>
-                    </div>
-                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
-                      <span className="font-medium">WhatsApp (General)</span>
-                      <a href="https://wa.me/919449844640" target="_blank" rel="noopener noreferrer" className="text-primary font-bold">9449844640</a>
-                    </div>
-                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
-                      <span className="font-medium">Safety Concerns</span>
-                      <span className="text-primary font-bold">9483191222</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
-                      <span className="font-medium">SMS Complaint</span>
-                      <span className="text-primary font-bold">58888</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
-                      <span className="font-medium">Email</span>
-                      <a href="mailto:helpline@bescom.co.in" className="text-primary font-bold text-xs">helpline@bescom.co.in</a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Smartphone className="w-4 h-4 text-primary" />
-                    How to Report Power Outages
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm text-muted-foreground">
-                  <ol className="list-decimal pl-4 space-y-2">
-                    <li><strong className="text-foreground">Call 1912</strong> — BESCOM's 24x7 helpline for immediate assistance.</li>
-                    <li><strong className="text-foreground">BESCOM Mithra App</strong> — Download from Play Store to report outages and track complaints.</li>
-                    <li><strong className="text-foreground">WhatsApp</strong> — Send complaint to <strong>9449844640</strong> with account number and area.</li>
-                    <li><strong className="text-foreground">SMS</strong> — Send details to <strong>58888</strong> for quick registration.</li>
-                    <li><strong className="text-foreground">Online</strong> — Visit <a href="https://bescom.karnataka.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">bescom.karnataka.gov.in</a> for planned outages.</li>
-                  </ol>
-                  <div className="pt-2 border-t">
-                    <Button size="sm" variant="default" asChild>
-                      <a href="https://bescom.karnataka.gov.in/new-page/Planned%20Outages%20-%20BESCOM%20Works/en" target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-1" /> View Planned Outages
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <MessageCircle className="w-4 h-4 text-primary" />
-                  Recent Citizen Feedback on Power Outages
-                </CardTitle>
-                <CardDescription>Common concerns reported by Bengaluru residents</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {[
-                    { area: 'Koramangala', issue: 'Unscheduled 4-hour outage during peak hours, no prior intimation from BESCOM.', time: '2 days ago', status: 'Resolved' },
-                    { area: 'Whitefield', issue: 'Frequent voltage fluctuations damaging appliances. Transformer needs upgrade.', time: '3 days ago', status: 'In Progress' },
-                    { area: 'Jayanagar', issue: 'Scheduled maintenance extended beyond communicated time. Restored after 8 hours.', time: '4 days ago', status: 'Resolved' },
-                    { area: 'Mahadevapura', issue: 'Recurring outages every evening 6-8 PM for past week. Infrastructure overload suspected.', time: '5 days ago', status: 'Under Review' },
-                    { area: 'Electronic City', issue: 'Power cut during heavy rain, tree fell on lines. BESCOM response took 6 hours.', time: '1 week ago', status: 'Resolved' },
-                    { area: 'HSR Layout', issue: 'Three unscheduled outages in one day. Residents demand better communication.', time: '1 week ago', status: 'Acknowledged' },
-                  ].map((feedback, i) => (
-                    <div key={i} className="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-muted/30 transition-colors">
-                      <Zap className="w-4 h-4 text-orange-500 mt-1 shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-semibold text-sm text-foreground">{feedback.area}</span>
-                          <Badge variant={feedback.status === 'Resolved' ? 'default' : 'outline'} className="text-[10px] h-5">
-                            {feedback.status}
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground">{feedback.issue}</p>
-                        <span className="text-xs text-muted-foreground/60 mt-1 block">{feedback.time}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
         {/* ── GBA Officers (moved to bottom) ── */}
         <section aria-labelledby="officers-heading">
           <h2 id="officers-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2 mb-4">
@@ -840,6 +735,8 @@ export default function AboutMyCity() {
             ))}
           </div>
         </section>
+
+        <AlertSubscriptionModal open={alertModalOpen} onOpenChange={setAlertModalOpen} />
       </div>
     </AppLayout>
   );
