@@ -38,7 +38,7 @@ const Index = () => {
   return (
     <AppLayout>
       {/* ── Layer 2: Civic Skyline Banner (emotional layer) ── */}
-      <section className="civic-skyline-banner -mx-4 md:-mx-6 lg:-mx-8 -mt-6 md:-mt-8 mb-0">
+      <section className="civic-skyline-banner -mx-4 md:-mx-6 lg:-mx-8 mb-0">
         <div className="skyline-text pt-6 pb-2">
           <p className="civic-tagline">Namma Karnataka &nbsp;·&nbsp; Namma Bengaluru</p>
         </div>
