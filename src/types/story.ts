@@ -167,19 +167,54 @@ export interface Ward {
 
 // City wards (sample data — replace with real MDMS ward data)
 export const WARDS: Ward[] = [
+  // South Zone
   { code: 'JAYANAGAR', name: 'Jayanagar', subcounty: 'South Zone', center: { lat: 12.9250, lng: 77.5938 } },
-  { code: 'KORAMANGALA', name: 'Koramangala', subcounty: 'Bommanahalli Zone', center: { lat: 12.9352, lng: 77.6245 } },
-  { code: 'INDIRANAGAR', name: 'Indiranagar', subcounty: 'East Zone', center: { lat: 12.9784, lng: 77.6408 } },
-  { code: 'MALLESHWARAM', name: 'Malleshwaram', subcounty: 'North Zone', center: { lat: 13.0035, lng: 77.5700 } },
-  { code: 'WHITEFIELD', name: 'Whitefield', subcounty: 'Mahadevapura Zone', center: { lat: 12.9698, lng: 77.7500 } },
-  { code: 'HSR_LAYOUT', name: 'HSR Layout', subcounty: 'Bommanahalli Zone', center: { lat: 12.9116, lng: 77.6389 } },
   { code: 'BTM_LAYOUT', name: 'BTM Layout', subcounty: 'South Zone', center: { lat: 12.9166, lng: 77.6101 } },
-  { code: 'RAJAJINAGAR', name: 'Rajajinagar', subcounty: 'West Zone', center: { lat: 12.9900, lng: 77.5550 } },
-  { code: 'HEBBAL', name: 'Hebbal', subcounty: 'North Zone', center: { lat: 13.0358, lng: 77.5970 } },
-  { code: 'YELAHANKA', name: 'Yelahanka', subcounty: 'Yelahanka Zone', center: { lat: 13.1007, lng: 77.5963 } },
   { code: 'BASAVANAGUDI', name: 'Basavanagudi', subcounty: 'South Zone', center: { lat: 12.9432, lng: 77.5730 } },
-  { code: 'MARATHAHALLI', name: 'Marathahalli', subcounty: 'Mahadevapura Zone', center: { lat: 12.9591, lng: 77.7009 } },
+  { code: 'BANASHANKARI', name: 'Banashankari', subcounty: 'South Zone', center: { lat: 12.9255, lng: 77.5468 } },
+  { code: 'JP_NAGAR', name: 'JP Nagar', subcounty: 'South Zone', center: { lat: 12.9063, lng: 77.5857 } },
+  { code: 'KUMARASWAMY_LAYOUT', name: 'Kumaraswamy Layout', subcounty: 'South Zone', center: { lat: 12.9050, lng: 77.5600 } },
+  // Bommanahalli Zone
+  { code: 'KORAMANGALA', name: 'Koramangala', subcounty: 'Bommanahalli Zone', center: { lat: 12.9352, lng: 77.6245 } },
+  { code: 'HSR_LAYOUT', name: 'HSR Layout', subcounty: 'Bommanahalli Zone', center: { lat: 12.9116, lng: 77.6389 } },
+  { code: 'BOMMANAHALLI', name: 'Bommanahalli', subcounty: 'Bommanahalli Zone', center: { lat: 12.9000, lng: 77.6200 } },
+  { code: 'BELLANDUR', name: 'Bellandur', subcounty: 'Bommanahalli Zone', center: { lat: 12.9260, lng: 77.6762 } },
+  { code: 'ELECTRONIC_CITY', name: 'Electronic City', subcounty: 'Bommanahalli Zone', center: { lat: 12.8456, lng: 77.6603 } },
+  // East Zone
+  { code: 'INDIRANAGAR', name: 'Indiranagar', subcounty: 'East Zone', center: { lat: 12.9784, lng: 77.6408 } },
   { code: 'SHIVAJINAGAR', name: 'Shivajinagar', subcounty: 'East Zone', center: { lat: 12.9850, lng: 77.6050 } },
+  { code: 'CV_RAMAN_NAGAR', name: 'CV Raman Nagar', subcounty: 'East Zone', center: { lat: 12.9860, lng: 77.6650 } },
+  { code: 'ULSOOR', name: 'Ulsoor', subcounty: 'East Zone', center: { lat: 12.9815, lng: 77.6200 } },
+  { code: 'FRAZER_TOWN', name: 'Frazer Town', subcounty: 'East Zone', center: { lat: 12.9960, lng: 77.6130 } },
+  // North Zone
+  { code: 'MALLESHWARAM', name: 'Malleshwaram', subcounty: 'North Zone', center: { lat: 13.0035, lng: 77.5700 } },
+  { code: 'HEBBAL', name: 'Hebbal', subcounty: 'North Zone', center: { lat: 13.0358, lng: 77.5970 } },
+  { code: 'SADASHIVANAGAR', name: 'Sadashivanagar', subcounty: 'North Zone', center: { lat: 13.0100, lng: 77.5800 } },
+  { code: 'RT_NAGAR', name: 'RT Nagar', subcounty: 'North Zone', center: { lat: 13.0200, lng: 77.5950 } },
+  { code: 'SANJAYNAGAR', name: 'Sanjaynagar', subcounty: 'North Zone', center: { lat: 13.0280, lng: 77.5730 } },
+  // West Zone
+  { code: 'RAJAJINAGAR', name: 'Rajajinagar', subcounty: 'West Zone', center: { lat: 12.9900, lng: 77.5550 } },
+  { code: 'VIJAYANAGAR', name: 'Vijayanagar', subcounty: 'West Zone', center: { lat: 12.9700, lng: 77.5350 } },
+  { code: 'NAGARBHAVI', name: 'Nagarbhavi', subcounty: 'West Zone', center: { lat: 12.9600, lng: 77.5100 } },
+  { code: 'KENGERI', name: 'Kengeri', subcounty: 'West Zone', center: { lat: 12.9100, lng: 77.4850 } },
+  // Mahadevapura Zone
+  { code: 'WHITEFIELD', name: 'Whitefield', subcounty: 'Mahadevapura Zone', center: { lat: 12.9698, lng: 77.7500 } },
+  { code: 'MARATHAHALLI', name: 'Marathahalli', subcounty: 'Mahadevapura Zone', center: { lat: 12.9591, lng: 77.7009 } },
+  { code: 'KR_PURAM', name: 'KR Puram', subcounty: 'Mahadevapura Zone', center: { lat: 12.9980, lng: 77.7060 } },
+  { code: 'VARTHUR', name: 'Varthur', subcounty: 'Mahadevapura Zone', center: { lat: 12.9400, lng: 77.7400 } },
+  { code: 'HOODI', name: 'Hoodi', subcounty: 'Mahadevapura Zone', center: { lat: 12.9900, lng: 77.7200 } },
+  // Yelahanka Zone
+  { code: 'YELAHANKA', name: 'Yelahanka', subcounty: 'Yelahanka Zone', center: { lat: 13.1007, lng: 77.5963 } },
+  { code: 'THANISANDRA', name: 'Thanisandra', subcounty: 'Yelahanka Zone', center: { lat: 13.0600, lng: 77.6300 } },
+  { code: 'JAKKUR', name: 'Jakkur', subcounty: 'Yelahanka Zone', center: { lat: 13.0700, lng: 77.6000 } },
+  { code: 'SAHAKARNAGAR', name: 'Sahakarnagar', subcounty: 'Yelahanka Zone', center: { lat: 13.0550, lng: 77.5800 } },
+  // Dasarahalli Zone
+  { code: 'DASARAHALLI', name: 'Dasarahalli', subcounty: 'Dasarahalli Zone', center: { lat: 13.0450, lng: 77.5200 } },
+  { code: 'PEENYA', name: 'Peenya', subcounty: 'Dasarahalli Zone', center: { lat: 13.0300, lng: 77.5150 } },
+  { code: 'VIDYARANYAPURA', name: 'Vidyaranyapura', subcounty: 'Dasarahalli Zone', center: { lat: 13.0780, lng: 77.5550 } },
+  // RR Nagar Zone
+  { code: 'RR_NAGAR', name: 'Rajarajeshwari Nagar', subcounty: 'RR Nagar Zone', center: { lat: 12.9200, lng: 77.5100 } },
+  { code: 'UTTARAHALLI', name: 'Uttarahalli', subcounty: 'RR Nagar Zone', center: { lat: 12.8900, lng: 77.5400 } },
 ];
 
 export const ISSUE_CATEGORIES: { code: IssueCategory; label: string; description: string; serviceCode: string }[] = [

@@ -10,6 +10,7 @@ import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
 import { ActiveSurveys } from '@/components/surveys/ActiveSurveys';
 import { NotificationsPanel } from '@/components/notifications/NotificationsPanel';
 import { findWardByCoords } from '@/lib/happeningsApi';
+import { WARDS } from '@/types/story';
 import { UserPreferencesModal, loadUserPreferences, UserPreferences } from '@/components/preferences/UserPreferencesModal';
 import { Button } from '@/components/ui/button';
 import { getOverviewStats, getAverageSolutionTime } from '@/lib/serviceAnalyticsData';
@@ -131,26 +132,43 @@ const Index = () => {
       {/* ── Notifications ── */}
       <NotificationsPanel className="mb-8" />
 
-      {/* ── Preferences Banner (compact) ── */}
+      {/* ── Preferences Banner (compact) — always shows selected wards ── */}
       <section className="mb-8">
-        <div className="gov-card p-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Settings2 className="w-4 h-4 text-primary flex-shrink-0" />
-            <p className="text-sm text-foreground">
-              {userPreferences.subscribedWards.length > 0 || userPreferences.preferredTopics.length > 0
-                ? `Following ${userPreferences.subscribedWards.length} ward(s), ${userPreferences.preferredTopics.length} topic(s)`
-                : 'Customize your feed — select wards and topics'}
-            </p>
+        <div className="gov-card p-4">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+              <span className="text-sm font-semibold text-foreground">
+                {userPreferences.subscribedWards.length > 0 ? 'My Wards' : 'No wards selected'}
+              </span>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPreferencesOpen(true)}
+              className="gap-1.5 text-xs"
+            >
+              <Settings2 className="w-3.5 h-3.5" />
+              Preferences
+            </Button>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setPreferencesOpen(true)}
-            className="gap-1.5 text-xs"
-          >
-            <Settings2 className="w-3.5 h-3.5" />
-            Preferences
-          </Button>
+          {userPreferences.subscribedWards.length > 0 ? (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {userPreferences.subscribedWards.map(code => {
+                const ward = WARDS.find(w => w.code === code);
+                return ward ? (
+                  <span key={code} className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary px-2.5 py-1 rounded-full">
+                    <MapPin className="w-3 h-3" />
+                    {ward.name}
+                  </span>
+                ) : null;
+              })}
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground mt-1">
+              Tap Preferences to select your wards and see personalized updates
+            </p>
+          )}
         </div>
       </section>
 

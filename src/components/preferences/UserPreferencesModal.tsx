@@ -151,12 +151,12 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
         {/* Sticky Header */}
         <div className="flex items-start justify-between px-6 pt-2 pb-4 border-b border-border shrink-0">
           <div>
-            <h2 className="flex items-center gap-2 text-xl font-bold text-foreground">
+            <h2 className="flex items-center gap-2 text-foreground" style={{ fontSize: 24, fontWeight: 600, lineHeight: '32px' }}>
               <Bell className="w-5 h-5 text-primary" />
               My Preferences
             </h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              Select the areas and topics you want to follow
+            <p className="mt-1" style={{ fontSize: 16, fontWeight: 400, color: '#6B7280' }}>
+              Select the wards and topics you want to follow
             </p>
           </div>
           <button
@@ -176,7 +176,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold text-foreground">My Wards</h3>
+                <h3 className="text-foreground" style={{ fontSize: 20, fontWeight: 600, lineHeight: '28px' }}>My Wards</h3>
                 <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                   {selectedWards.length} selected
                 </span>
@@ -194,7 +194,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
             <div className="space-y-4">
               {Object.entries(wardsBySubcounty).map(([subcounty, wards]) => (
                 <div key={subcounty}>
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
+                  <p style={{ fontSize: 13, fontWeight: 500, letterSpacing: '0.04em', color: '#6B7280', textTransform: 'uppercase' as const }} className="mb-2">
                     {subcounty}
                   </p>
                   <div className="grid grid-cols-2 gap-2">
@@ -212,7 +212,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
                           onCheckedChange={() => handleWardToggle(ward.code)}
                           className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                         />
-                        <span className="text-sm font-medium text-foreground">{ward.name}</span>
+                        <span style={{ fontSize: 16, fontWeight: 400, lineHeight: '24px' }} className="text-foreground">{ward.name}</span>
                       </label>
                     ))}
                   </div>
@@ -226,7 +226,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Bell className="w-5 h-5 text-secondary" />
-                <h3 className="font-semibold text-foreground">Topics of Interest</h3>
+                <h3 className="text-foreground" style={{ fontSize: 20, fontWeight: 600, lineHeight: '28px' }}>Topics of Interest</h3>
                 <span className="text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full">
                   {selectedTopics.length} selected
                 </span>
