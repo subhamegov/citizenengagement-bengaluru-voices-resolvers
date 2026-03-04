@@ -1,39 +1,111 @@
 
 
-## Header Responsiveness Fix
+# Migrate UI to UX4G Design System
 
-**The Problem**: Both the citizen and resolver headers have 9-10 navigation items displayed horizontally. At the `lg` breakpoint (1024px), these items overflow or get cramped because there is too much content for the available width. The nav items use `px-4 py-2.5` padding with both icons and text labels, which takes up significant horizontal space.
+This is a large visual refactoring task. The approach is to make centralized changes (config file, CSS tokens, component styles) rather than touching every page individually.
 
-**Proposed Solution**: A multi-pronged approach to make the header navigation fit cleanly at all desktop widths.
+## Scope Analysis
 
-### Changes
+**Files using NCC-specific classes**: 26 files across layouts, pages, and components
+**Hardcoded "Nairobi" references**: ~50 files including pages, data files, layouts
+**NCC custom CSS classes**: ~20 defined in `src/index.css` (ncc-hero, ncc-card, ncc-btn-*, ncc-action-tile-*, ncc-nav-item, ncc-footer, etc.)
 
-**1. Increase the desktop nav breakpoint from `lg` (1024px) to `xl` (1280px)**
-- In both `AppLayout.tsx` and `ResolverLayout.tsx`, change `hidden lg:flex` to `hidden xl:flex` for the desktop nav, and `lg:hidden` to `xl:hidden` for the mobile menu button and mobile nav panel.
-- This ensures the horizontal nav only appears when there is enough room.
+## Plan
 
-**2. Reduce nav item padding and font size for tighter fit**
-- In `src/index.css`, reduce `.ncc-nav-item` padding from `px-4 py-2.5` to `px-2.5 py-2` and add `text-sm` for a more compact layout.
+### 1. Create a central branding config file
 
-**3. Hide nav item text labels at the `xl` breakpoint, show at `2xl`**
-- Wrap nav text `<span>` elements with responsive classes: `hidden 2xl:inline` so that at the `xl` breakpoint only icons show, and at `2xl`+ both icon and text show.
-- This gives the nav a compact icon-only mode at narrower desktop widths and full labels on wider screens.
+Create `src/lib/brandConfig.ts` containing all configurable branding strings:
+- Organization name, subtitle, portal names
+- Contact info (phone, email, website)
+- Logo/emblem alt text
+- Taglines and CTA copy
 
-### Files to Edit
-- `src/components/layout/AppLayout.tsx` -- breakpoint changes + responsive text visibility
-- `src/components/layout/ResolverLayout.tsx` -- same changes
-- `src/index.css` -- reduce `.ncc-nav-item` padding
+This replaces all hardcoded "Nairobi City County", "Kenya Coat of Arms", contact details, etc. across layouts and pages.
 
-### Technical Detail
+### 2. Retheme CSS tokens to UX4G palette
 
-The key CSS change in `index.css`:
-```css
-.ncc-nav-item {
-  @apply flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-sm font-medium;
-}
-```
+Update `src/index.css` to replace the Nairobi green/gold palette with UX4G's India Gov palette:
 
-Nav item spans get: `<span className="hidden 2xl:inline">Home</span>`
+**UX4G visual identity** (from screenshots):
+- Top bar: Dark/black with Indian flag, "Government of India" branding
+- Navbar: White background with dark text (not colored header)
+- Primary accent: Deep blue/indigo (#3F51B5 or similar)
+- Secondary: Warm orange/saffron (#FF6F00)
+- Clean white cards with subtle borders
+- Typography: System sans-serif, clean and neutral
 
-Breakpoints change from `lg:` to `xl:` for showing/hiding desktop vs mobile nav.
+Token changes in `:root`:
+- `--primary`: from green (145 75% 28%) to blue (230 65% 45%)
+- `--secondary`: from gold (38 95% 50%) to saffron (25 100% 50%)
+- `--accent`: from deep blue to a lighter blue-gray
+- `--header-gradient-start/end`: remove gradients, use solid dark (#1a1a2e or similar)
+- Update dark mode tokens accordingly
+
+### 3. Restyle NCC component classes to UX4G patterns
+
+Rename and restyle all `ncc-*` classes in `src/index.css` to `gov-*` equivalents:
+
+| Old Class | New Class | UX4G Style |
+|-----------|-----------|------------|
+| `ncc-header` | `gov-header` | White/light background, dark text, bottom border |
+| `ncc-accent-bar` | `gov-accent-bar` | Tricolor strip (saffron-white-green) or solid dark bar |
+| `ncc-hero` | `gov-hero` | Clean blue gradient, no rounded corners |
+| `ncc-card` | `gov-card` | White card, subtle shadow, square-ish corners |
+| `ncc-btn-primary` | `gov-btn-primary` | Solid blue button, no hover translate |
+| `ncc-btn-secondary` | `gov-btn-secondary` | Orange/saffron button |
+| `ncc-nav-item` | `gov-nav-item` | Dark text on white, underline active state |
+| `ncc-footer` | `gov-footer` | Dark footer, cleaner layout |
+| `ncc-section-header` | `gov-section-header` | Blue left bar instead of green |
+| `ncc-action-tile-*` | `gov-action-tile-*` | Lighter gradients, less dramatic hover |
+
+### 4. Update layout components
+
+**AppLayout.tsx and ResolverLayout.tsx**:
+- Import from `brandConfig` instead of hardcoded strings
+- Change header from green gradient (`ncc-header`) to white/light background with dark text (`gov-header`)
+- Add a top dark bar with flag + "Government of India" style branding
+- Update nav item styling to dark-on-light instead of light-on-dark
+- Update footer to use brand config
+
+### 5. Update page-level branding references
+
+Files with hardcoded "Nairobi" text that need to use `brandConfig`:
+- `src/pages/Index.tsx` - hero title, CTA text
+- `src/pages/AboutMyCity.tsx` - page title, FAQ answers
+- `src/pages/resolver/ResolverTraining.tsx` - training description
+- `src/pages/MyTickets.tsx` - hero section
+- Other pages using `ncc-*` classes: bulk find-replace to `gov-*`
+
+### 6. Update Tailwind config
+
+In `tailwind.config.ts`:
+- Change font family from Poppins/Open Sans to a neutral stack (e.g., "Inter" or just system-ui)
+- Adjust border-radius defaults (UX4G uses more squared corners)
+- Update shadow tokens to be subtler
+
+### 7. Bulk class rename across all 26 files
+
+Simple find-and-replace of `ncc-` to `gov-` across all `.tsx` files. Since the CSS class definitions are also renamed, this is safe and non-breaking.
+
+## Files to Edit
+
+| File | Change Type |
+|------|------------|
+| `src/lib/brandConfig.ts` | **New** - central branding config |
+| `src/index.css` | Major - all tokens + all component classes |
+| `tailwind.config.ts` | Medium - fonts, radius, shadows |
+| `src/components/layout/AppLayout.tsx` | Major - header/footer restructure + brand config |
+| `src/components/layout/ResolverLayout.tsx` | Major - same |
+| `src/pages/Index.tsx` | Medium - brand config + class renames |
+| `src/pages/AboutMyCity.tsx` | Medium - brand references |
+| `src/pages/MyTickets.tsx` | Small - class renames |
+| `index.html` | Small - title, meta, font preloads |
+| 20+ other `.tsx` files | Small - `ncc-` → `gov-` class rename |
+
+## What Does NOT Change
+- Routing structure
+- Component props/APIs
+- Business logic
+- Data files (nairobiAdminData.ts etc. keep their data, just branding strings change)
+- shadcn UI component internals (button.tsx, card.tsx, etc.)
 
