@@ -79,7 +79,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       <div className="mygov-accent-bar" />
 
       {/* ── Main Header ── */}
-      <header className="mygov-header sticky top-0 z-50 bg-background/95 backdrop-blur-sm">
+      <header className="mygov-header sticky top-0 z-50 bg-background backdrop-blur-md shadow-sm">
         <div className="container">
           {/* Top row: emblem + name + search + profile */}
           <div className="flex items-center justify-between h-16 md:h-[72px]">
