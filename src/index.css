@@ -371,7 +371,7 @@
 
   /* ── Footer ── */
   .gov-footer {
-    background-color: hsl(var(--gov-topbar));
+    background-color: hsl(222 28% 12%);
     @apply text-white py-12;
   }
 }
