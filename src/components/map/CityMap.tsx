@@ -335,7 +335,7 @@ export function CityMap({
               <SelectTrigger className="h-8 text-xs">
                 <SelectValue placeholder="Agency" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-[2000]">
                 {AGENCIES.map(a => <SelectItem key={a.value} value={a.value}>{a.label}</SelectItem>)}
               </SelectContent>
             </Select>
@@ -344,7 +344,7 @@ export function CityMap({
               <SelectTrigger className="h-8 text-xs">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-[2000]">
                 {STATUSES.map(s => <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>)}
               </SelectContent>
             </Select>
