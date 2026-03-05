@@ -1,6 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users, Search, Accessibility, Languages, User, ChevronDown } from 'lucide-react';
+import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users, Search, Accessibility, Languages, User, ChevronDown, Bell } from 'lucide-react';
+import { NotificationsPanel } from '@/components/notifications/NotificationsPanel';
+import { loadUserPreferences } from '@/components/preferences/UserPreferencesModal';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { CITY } from '@/config/city';
 import {
@@ -96,18 +103,61 @@ export function AppLayout({ children }: AppLayoutProps) {
                 </p>
               </div>
             </NavLink>
+            <div className="flex items-center gap-1">
+              {/* Notifications Bell */}
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    type="button"
+                    className="relative flex items-center justify-center w-11 h-11 rounded text-foreground hover:bg-muted transition-colors"
+                    aria-label="Notifications"
+                    title="Notifications"
+                  >
+                    <Bell className="w-5 h-5" />
+                    {(() => {
+                      const prefs = loadUserPreferences();
+                      const wards = prefs.subscribedWards;
+                      const allNotifs = [
+                        { wardCode: 'JAYANAGAR', unread: true },
+                        { wardCode: 'JAYANAGAR', unread: true },
+                        { wardCode: 'KORAMANGALA', unread: false },
+                        { wardCode: 'INDIRANAGAR', unread: false },
+                        { wardCode: 'WHITEFIELD', unread: true },
+                        { wardCode: 'MARATHAHALLI', unread: true },
+                        { wardCode: 'HSR_LAYOUT', unread: false },
+                        { wardCode: 'HEBBAL', unread: false },
+                        { wardCode: 'MALLESHWARAM', unread: true },
+                        { wardCode: 'BASAVANAGUDI', unread: false },
+                      ];
+                      const filtered = wards.length > 0
+                        ? allNotifs.filter(n => wards.includes(n.wardCode))
+                        : allNotifs.slice(0, 4);
+                      const unreadCount = filtered.filter(n => n.unread).length;
+                      return unreadCount > 0 ? (
+                        <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold px-1">
+                          {unreadCount}
+                        </span>
+                      ) : null;
+                    })()}
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-[380px] max-h-[70vh] overflow-y-auto p-0" sideOffset={8}>
+                  <NotificationsPanel className="p-4" />
+                </PopoverContent>
+              </Popover>
 
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              className="lg:hidden flex items-center justify-center w-11 h-11 rounded text-foreground hover:bg-muted transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-menu"
-              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              {/* Mobile Menu Button */}
+              <button
+                type="button"
+                className="lg:hidden flex items-center justify-center w-11 h-11 rounded text-foreground hover:bg-muted transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
+                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
 

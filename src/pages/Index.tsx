@@ -8,7 +8,7 @@ import { AppLayout } from '@/components/layout/AppLayout';
 import { CityMap } from '@/components/map/CityMap';
 import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
 import { ActiveSurveys } from '@/components/surveys/ActiveSurveys';
-import { NotificationsPanel } from '@/components/notifications/NotificationsPanel';
+
 import { findWardByCoords } from '@/lib/happeningsApi';
 import { WARDS } from '@/types/story';
 import { UserPreferencesModal, loadUserPreferences, UserPreferences } from '@/components/preferences/UserPreferencesModal';
@@ -119,8 +119,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ── Notifications ── */}
-      <NotificationsPanel className="mb-8" />
 
       {/* ── Preferences Banner (compact) — always shows selected wards ── */}
       <section className="mb-8">
