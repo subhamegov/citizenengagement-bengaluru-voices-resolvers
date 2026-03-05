@@ -269,8 +269,8 @@ export function AppLayout({ children }: AppLayoutProps) {
                 <img src={CITY.emblemAsset} alt={CITY.emblemAlt} className="w-10 h-10 object-contain brightness-200" />
                 <div>
                   <p className="font-bold font-display">{CITY.authorityName}</p>
-                  <p className="text-xs opacity-70">{CITY.portalCitizenTitle}</p>
-                  <p className="text-[10px] opacity-60">{CITY.portalCitizenTitleKn}</p>
+                  <p className="text-sm opacity-80">{CITY.portalCitizenTitle}</p>
+                  <p className="text-xs opacity-70">{CITY.portalCitizenTitleKn}</p>
                 </div>
               </div>
             </div>
