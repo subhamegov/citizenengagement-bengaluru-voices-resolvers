@@ -141,7 +141,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     })()}
                   </button>
                 </PopoverTrigger>
-                <PopoverContent align="end" className="w-[380px] max-h-[70vh] overflow-y-auto p-0" sideOffset={8}>
+                <PopoverContent align="end" className="w-[380px] max-h-[70vh] overflow-y-auto p-0 bg-background border border-border shadow-lg" sideOffset={8}>
                   <NotificationsPanel className="p-4" />
                 </PopoverContent>
               </Popover>
@@ -190,7 +190,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
         <SheetContent
           side="right"
-          className="w-[85vw] max-w-sm p-0 [&>button]:hidden"
+          className="w-[85vw] max-w-sm p-0 [&>button]:hidden flex flex-col"
           style={{ backgroundColor: '#FFFFFF', zIndex: 9999 }}
         >
           <SheetHeader className="px-5 pt-4 pb-3 border-b border-border">
@@ -208,7 +208,7 @@ export function AppLayout({ children }: AppLayoutProps) {
             </div>
           </SheetHeader>
 
-          <nav className="py-2 px-5 space-y-1 overflow-y-auto" aria-label="Mobile navigation">
+          <nav className="py-2 px-5 space-y-1 overflow-y-auto flex-1" aria-label="Mobile navigation">
             {citizenNav.map((item) => (
               <NavLink
                 key={item.name}
