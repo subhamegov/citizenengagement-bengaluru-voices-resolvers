@@ -58,16 +58,6 @@ const Index = () => {
           <p className="action-description">
             Report city issues, track requests, and help improve your neighbourhood.
           </p>
-          <div className="flex flex-wrap gap-3 mt-6">
-            <Link to="/report" className="gov-btn-outline">
-              <PenSquare className="w-5 h-5" />
-              Report an Issue
-            </Link>
-            <Link to="/my-tickets" className="gov-btn-outline">
-              <Ticket className="w-5 h-5" />
-              Track My Requests
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -111,7 +101,7 @@ const Index = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {[
             { icon: PenSquare, label: 'Share Your Voice', desc: 'Potholes, garbage, leaks', href: '/report' },
-            { icon: Ticket, label: 'My Reports', desc: 'Track complaint progress', href: '/my-tickets' },
+            { icon: Ticket, label: 'My Activity', desc: 'Track reports & discussions', href: '/my-tickets' },
             { icon: GraduationCap, label: 'Training & Help', desc: 'Learn how to use portal', href: '/training' },
             { icon: ClipboardList, label: 'Active Surveys', desc: 'Participate in surveys', href: '/surveys' },
             { icon: FileText, label: 'Policy Feedback', desc: 'Share views on policies', href: '/policy' },
